@@ -1,0 +1,19 @@
+<style>
+    tr, td{
+        border : 2px solid grey ;
+       
+    } 
+    td{
+        margin : 20px ;
+    }
+</style>
+<?php
+echo $this->tag->linkTo(
+    ['admin/addproduct/index',
+    'Add Product']
+);
+echo "<br>";
+echo $this->tag->linkTo([
+    'admin/displayproduct/index',
+    ' Display Product']
+);

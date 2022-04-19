@@ -1,0 +1,140 @@
+<?php include(APP_PATH . '/admin/views/index/index.phtml'); ?>
+<h2>add product</h2>
+
+<?php
+echo $this->tag->form("admin/addproduct/register");
+?>
+
+<p>
+    <label for="productname">product name :</label>
+
+    <input type="text" name="productname" id="" value="<?php if (isset($edit)) {
+                                                            echo $edit->product_name;
+                                                        } ?>">
+</p>
+
+<p>
+    <label for="categoryname">Category name</label>
+    <input type="text" name="categoryname" id="" value="<?php if (isset($edit)) {
+                                                            echo $edit->category_name;
+                                                        } ?>">
+
+</p>
+<p>
+    <label for="price">Price :</label>
+    <input type="text" name="price" id="" value="<?php if (isset($edit)) {
+                                                        echo $edit->price;
+                                                    } ?>">
+
+</p>
+<p>
+    <label for="stock">stock</label>
+    <input type="text" name="stock" id="" value="<?php if (isset($edit)) {
+                                                        echo $edit->stock;
+                                                    } ?>">
+
+
+</p>
+<div>
+<h3>Label</h3>
+    <input type="hidden" name='id' value="<?php if (isset($edit)) {
+                                                echo $edit->_id;
+                                            }; ?>">
+    <input type="button" onclick="addfield()" id="add_row" value="+">
+    <input type="button" onclick="delfield()" id="del_row" value="-">
+
+
+    <p id="label">
+        <?php
+        if (isset($edit->label_value)) {
+            foreach ($edit->label_value as $val) {
+                echo "<input type = 'text' name = 'label[]' value = '" . $val->label . "'>
+            <input type = 'text' name = 'input[]' value = '" . $val->value . "'><br><br>";
+            }
+        } ?>
+    </p>
+</div>
+
+<div>
+    <h3>Variation</h3>
+    <input type="button" onclick="addvariation()" value="+">
+    <input type="button" onclick="delvariation()" value="-">
+
+    <p id="attribute">
+        <?php
+        if (isset($edit->variation)) {
+            foreach ($edit->variation as $val) {
+                echo "<input type = 'text' name = 'variation_name[]' value = '" . $val->name . "'>
+            <input type = 'text' name = 'variation_value[]' value = '" . $val->value . "'>
+            <input type = 'text' name = 'variation_price[]' value = '" . $val->price . "'>";
+        }
+        echo "<br><br>";
+        } ?>
+    </p>
+
+</div>
+<?php if (isset($edit)) { ?>
+    <p>
+        <?php echo $this->tag->submitButton(["update product", 'name' => 'updateproduct']); ?>
+    </p>
+<?php } else { ?>
+    <p>
+        <?php echo $this->tag->submitButton(["add product", 'name' => 'addproduct']); ?>
+    </p>
+<?php } ?>
+</form>
+<script>
+    var add_label = document.getElementById('label');
+    var variation = document.getElementById('attribute');
+
+
+    function addfield() {
+        let div = document.createElement("div");
+
+        let label = document.createElement("input");
+        label.setAttribute("type", "text");
+        label.setAttribute("placeholder", "label");
+        label.setAttribute("name", "label[]");
+
+        let input = document.createElement("input");
+        input.setAttribute("type", "text");
+        input.setAttribute("placeholder", "input");
+        input.setAttribute("name", "input[]");
+        div.append(label);
+        div.append(input);
+        add_label.append(div);
+    }
+
+    function delfield() {
+        add_label.removeChild(add_label.lastElementChild);
+    }
+
+
+    function addvariation() {
+        let div = document.createElement("div");
+        let name = document.createElement("input");
+        name.setAttribute("type", "text");
+        name.setAttribute("placeholder", "label");
+        name.setAttribute("name", "variation_name[]");
+
+        let value = document.createElement("input");
+        value.setAttribute("type", "text");
+        value.setAttribute("placeholder", "value");
+        value.setAttribute("name", "variation_value[]");
+
+        let price = document.createElement("input");
+        price.setAttribute("type", "number");
+        price.setAttribute("placeholder", "price");
+        price.setAttribute("name", "variation_price[]");
+
+        div.append(name);
+        div.append(value);
+        div.append(price);
+        variation.append(div);
+    }
+
+    function delvariation() {
+        variation.removeChild(variation.lastElementChild);
+
+    }
+</script>
