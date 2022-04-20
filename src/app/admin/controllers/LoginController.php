@@ -14,11 +14,11 @@ class LoginController extends Controller
         $pass = $this->request->get('password'); 
         $collection = $this->mongo->test->users;
         $result = $collection->findOne(['email' => $email, 'password' => $pass]);
-        if($email == $result->email && $pass == $result->password) {
-            header("Location:/addproduct/");
-        }
-        elseif($email == "") {
+        if($email === "" and $pass === "") {
             echo "Please enter correct email or password!!";
+        }
+        elseif($email == $result->email && $pass == $result->password) {
+            header("Location:/addproduct/");
         }
         else {
             echo "not authorized!!";

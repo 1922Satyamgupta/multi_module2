@@ -9,7 +9,7 @@ class SignupController extends Controller{
 
     }
 
-    public function registerAction(){
+    public function registerAction() {
         $signup = $this->mongo->test->users ;
         $name = $this->request->get('name');
         $email = $this->request->get('email');

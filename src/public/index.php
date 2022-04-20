@@ -78,7 +78,7 @@ $container->set(
         $router->add(
             '/signup/:action',
             [
-                'module'     => 'front',
+                'module'     => 'admin',
                 'controller' => 'signup',
                 'action'     => 1,
             ]
